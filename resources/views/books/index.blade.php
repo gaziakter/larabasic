@@ -10,10 +10,14 @@
             <li class="list-group-item">
                 <strong>{{ $book->title }}</strong> by {{ $book->author }} <br>
                 <small>Categories: 
+                    @foreach ($book->categories as $category)
+                        <span class="badge bg-secondary">{{ $category->name }}</span>
+                    @endforeach
+                </small>
+                <br>
+                <small>Subcategories: 
                     @foreach ($book->subcategories as $subcategory)
-                        <span class="badge bg-secondary">
-                            {{ $subcategory->name }} ({{ $subcategory->category->name }})
-                        </span>
+                        <span class="badge bg-info">{{ $subcategory->name }}</span>
                     @endforeach
                 </small>
             </li>

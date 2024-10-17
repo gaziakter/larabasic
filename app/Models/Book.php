@@ -11,13 +11,14 @@ class Book extends Model
 
     protected $fillable = ['title', 'author', 'description', 'published_at'];
 
-    public function subcategories()
-    {
-        return $this->belongsToMany(Subcategory::class, 'book_subcategory');
-    }
 
     public function categories()
     {
-        return $this->hasManyThrough(Category::class, Subcategory::class, 'id', 'id', 'subcategory_id', 'category_id');
+        return $this->belongsToMany(Category::class, 'book_category');
+    }
+    
+    public function subcategories()
+    {
+        return $this->belongsToMany(Subcategory::class, 'book_subcategory');
     }
 }

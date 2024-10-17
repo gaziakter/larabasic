@@ -22,9 +22,23 @@ class BookController extends Controller
 
     public function store(Request $request)
     {
-        $book = Book::create($request->only(['title', 'author', 'description', 'published_at']));
+        $validatedData = $request->validate([
+            'title' => 'required|string|max:255',
+            'author' => 'required|string|max:255',
+            'description' => 'nullable|string',
+            'published_at' => 'nullable|date',
+            'categories' => 'required|array',
+            'categories.*' => 'exists:categories,id',
+            'subcategories' => 'required|array',
+            'subcategories.*' => 'exists:subcategories,id',
+        ]);
+    
+        $book = Book::create($validatedData);
+    
+        // Attach the selected categories and subcategories
+        $book->categories()->attach($request->categories);
         $book->subcategories()->attach($request->subcategories);
-
+    
         return redirect()->route('books.index');
     }
 

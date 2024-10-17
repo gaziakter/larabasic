@@ -19,18 +19,28 @@
             <input type="date" name="published_at" class="form-control">
         </div>
 
-        <h3>Select Categories and Subcategories</h3>
+        <h3>Select Categories</h3>
         @foreach ($categories as $category)
             <div class="mb-2">
                 <strong>{{ $category->name }}</strong>
-                @foreach ($category->subcategories as $subcategory)
-                    <div class="form-check">
-                        <input class="form-check-input" type="checkbox" name="subcategories[]" value="{{ $subcategory->id }}">
-                        <label class="form-check-label">
-                            {{ $subcategory->name }}
-                        </label>
-                    </div>
-                @endforeach
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" name="categories[]" value="{{ $category->id }}" id="category-{{ $category->id }}">
+                    <label class="form-check-label" for="category-{{ $category->id }}">
+                        {{ $category->name }}
+                    </label>
+                </div>
+
+                <div class="ms-4">
+                    <h4>Select Subcategories</h4>
+                    @foreach ($category->subcategories as $subcategory)
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" name="subcategories[]" value="{{ $subcategory->id }}" id="subcategory-{{ $subcategory->id }}">
+                            <label class="form-check-label" for="subcategory-{{ $subcategory->id }}">
+                                {{ $subcategory->name }}
+                            </label>
+                        </div>
+                    @endforeach
+                </div>
             </div>
         @endforeach
 

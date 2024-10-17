@@ -11,13 +11,13 @@ class Category extends Model
 
     protected $fillable = ['name'];
 
+    public function books()
+    {
+        return $this->belongsToMany(Book::class, 'book_category');
+    }
+    
     public function subcategories()
     {
         return $this->hasMany(Subcategory::class);
-    }
-
-    public function books()
-    {
-        return $this->hasManyThrough(Book::class, Subcategory::class);
     }
 }
